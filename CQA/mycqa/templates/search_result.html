@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title></title>
+	<style type="text/css">
+		div#container{width:100%}
+		div#header {background-color:#99bbbb;height:50px;}
+		div#menu {background-color:#EEFFFF;height:650px;width:15%;float:left;}
+		div#content {background-color:#FFFFFF;height:90%;width:60%;float:left;}
+		div#footer {background-color:#99bbbb;clear:both;text-align:center;}
+		div#ad {background-color:#EEFFFF;height:650px;width:25%;float:left;}
+		div#blank {background-color:#EEEEEE;height:30px;width: 100%;float:left;}
+		div#quest {margin:10px 20px 10px 10px;background-color:#FFFFFF;width:95%;float: center;font-size:14px;color:grey;}
+		div#block {margin:10px 10px 10px 10px;background-color:#FFFFFF;width:90%;float: center}
+		h1 {margin-bottom:0;}
+		h2 {margin-bottom:0;font-size:18px;}
+		ul {margin:0;}
+		li {list-style:none;}
+	</style>
+</head>
+<body>
+	<div id="container">
+
+		<div id="header" align="left">
+			<div>
+				<form method="post">
+					<img src="/images/logo11.png" height=20 width=10% alt="" />
+					<input type="text" name="squest" size="80"/>
+					<input type="submit" value="Search Question"/>
+				</form>
+			</div>
+		</div>
+
+		<div id="menu">
+			<ul>
+			</ul>
+		</div>
+		<!-- get question like-->
+		<div id="content">
+			<table align="left" rules=rows width=100% bordercolor="#F0F0F0">
+				{% if result %}
+					{% for res in result %}
+						<tr>
+							<td>
+								<div id="quest">
+									<div id="question_title">
+										<a href="/question/?qpath={{res.q_path}}" ><font size="4">Question:{{res.q}}</font></a>
+										<br>{{res.q_ans}}							
+									</div>						
+								</div>							
+							</td>						
+						</tr>
+					{% endfor %}
+				{% endif %}
+			</table>
+			<div id="block">
+				<p>
+					{% if result.has_previous %}
+						<a href="?page={{result.previous_page_number}}&query={{quest}}" >Previous</a>
+					{% endif%}
+					{% for page_number in page_list %}
+						{% ifequal page_number result.number %}
+							{{page_number}}
+						{% else %}
+								<a href="?page={{page_number}}&query={{quest}}" >{{page_number}}</a>
+						{% endifequal%}			
+					{% endfor%}				
+				</p>
+			</div>
+		</div>
+		<div id="ad">
+			<div id="block"> <h5>How to search a question?</h5> </div>
+		</div>
+		<div id="footer">CopyRight ITNLP 2014</div>
+	</div>
+</body>
+
+</html>
